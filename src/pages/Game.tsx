@@ -1,5 +1,6 @@
 import Card from "../components/Card"
 import { usePlayers } from "../stores/usePlayers"
+import TotalCoins from "../components/TotalCoins";
 
 export default function Game() {
     const players = usePlayers((state) => state.players);
@@ -17,6 +18,7 @@ export default function Game() {
   <p>Velg en spiller på spillersiden for å begynne.</p>
 )}
    <Card card={{ suit: "spades", value: 1 }} faceDown />
+   <TotalCoins />
    </main>
   )
 }
