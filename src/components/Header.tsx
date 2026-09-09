@@ -8,8 +8,8 @@ export default function Header() {
 
         <nav>
             <NavLink to="/" end>Spill</NavLink>
-            <NavLink to="/player">Spilleregler</NavLink>
-            <NavLink to="/rules">Velg spiller</NavLink>
+            <NavLink to="/player">Velg spiller</NavLink>
+            <NavLink to="/rules">Spilleregler</NavLink>
         </nav>
     </header>
   )
