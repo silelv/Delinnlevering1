@@ -4,7 +4,10 @@ export default function Player() {
 
   const addPlayer = usePlayers((state) => state.addPlayer);
   const players = usePlayers((state) => state.players);
-  
+  const selectPlayer = usePlayers((state) => state.selectPlayer);
+  const selectedPlayerId = usePlayers((state) => state.selectedPlayerId);
+  const removePlayer = usePlayers((state) => state.removePlayer);
+
   function registerPlayer(formData: FormData) {
     const name = String(formData.get("name") ?? "").trim();
 
@@ -30,6 +33,18 @@ export default function Player() {
   {players.map((player) => (
     <li key={player.id}>
       {player.name} – {player.coins} mynter
+
+      <button type="button" 
+      onClick={() => selectPlayer(player.id)}
+      disabled={selectedPlayerId === player.id}>
+        {selectedPlayerId === player.id ? "Valgt" : "Velg spiller"}
+      </button>
+      <button
+  type="button"
+  onClick={() => removePlayer(player.id)}
+>
+  Slett spiller
+</button>
     </li>
   ))}
 </ul>
