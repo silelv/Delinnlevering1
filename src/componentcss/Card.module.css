@@ -23,3 +23,7 @@
 .black {
   color: #111;
 }
+
+.back {
+  background: linear-gradient(to top, #ffffff, #d54f85);
+}
