@@ -3,9 +3,22 @@ import styles from "../componentcss/Card.module.css"
 
 type CardProps = {
     card: PlayingCard;
+    faceDown?: boolean;
 }
 
-export default function Card({ card }: CardProps) {
+export default function Card({ card, faceDown = false }: CardProps) {
+
+    if (faceDown) {
+        return (
+                <div
+                className={`${styles.card} ${styles.back}`}
+                role="img"
+                aria-label="Kort med baksiden opp"
+                />
+            );
+    }
+
+
     const symbols ={
         hearts: "❤️",
         diamonds: "♦️",
