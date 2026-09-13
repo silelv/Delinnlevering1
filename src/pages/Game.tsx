@@ -1,6 +1,7 @@
 import Card from "../components/Card"
 import { usePlayers } from "../stores/usePlayers"
 import TotalCoins from "../components/TotalCoins";
+import CurrentBet from "../components/CurrentBet";
 
 export default function Game() {
     const players = usePlayers((state) => state.players);
@@ -19,6 +20,7 @@ export default function Game() {
 )}
    <Card card={{ suit: "spades", value: 1 }} faceDown />
    <TotalCoins />
+   <CurrentBet />
    </main>
   )
 }
