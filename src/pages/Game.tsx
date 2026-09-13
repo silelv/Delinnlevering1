@@ -2,6 +2,7 @@ import Card from "../components/Card"
 import { usePlayers } from "../stores/usePlayers"
 import TotalCoins from "../components/TotalCoins";
 import CurrentBet from "../components/CurrentBet";
+import styles from "../componentcss/Game.module.css";
 
 export default function Game() {
     const players = usePlayers((state) => state.players);
@@ -11,8 +12,9 @@ export default function Game() {
     
 
   return (
-    <main>
-   <h2>Spill</h2>
+    <main className={styles.game}>
+   <h2 className={styles.title}>Spill</h2>
+   <div>
    {selectedPlayer ? (
   <p>Spiller: {selectedPlayer.name}</p>
 ) : (
@@ -20,7 +22,16 @@ export default function Game() {
 )}
    <Card card={{ suit: "spades", value: 1 }} faceDown />
    <TotalCoins />
-   <CurrentBet />
+   </div>
+
+    <div className={styles.cards}>
+      <Card card={{ suit: "spades", value: 1 }} faceDown />
+    </div>
+
+
+    <div className={styles.controls}>
+      <CurrentBet />
+    </div>
    </main>
   )
 }

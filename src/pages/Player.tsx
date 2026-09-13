@@ -1,5 +1,6 @@
 import { usePlayers } from "../stores/usePlayers"
 import { useGame } from "../stores/useGame";
+import styles from "../componentcss/Player.module.css";
 
 export default function Player() {
 
@@ -24,38 +25,44 @@ export default function Player() {
 }
 
   return (
-    <>
+    <main className={styles.page}>
       <h2>Velg spiller</h2>
-      <form action={registerPlayer}>
+      <form className={styles.form} action={registerPlayer}>
         <label htmlFor="playerName">Spillernavn</label>
         <input
+          className={styles.input}
           id="playerName"
           name="name"
           type="text"
           required
         />
-        <button type="submit">Opprett spiller</button>
+        <button className={styles.button}
+        type="submit">Opprett spiller</button>
       </form>
-      <ul>
+      <ul className={styles.list}>
   {players.map((player) => (
-    <li key={player.id}>
+    <li className={styles.player} key={player.id}>
       {player.name} – {player.coins} mynter
-
-      <button type="button" 
+    <div className={styles.actions}>
+      <button 
+      className={styles.button}
+      type="button" 
       onClick={() => choosePlayer(player.id)}
       disabled={selectedPlayerId === player.id}>
         {selectedPlayerId === player.id ? "Valgt" : "Velg spiller"}
       </button>
       <button
-  type="button"
-  onClick={() => removePlayer(player.id)}
+      className={styles.deleteButton}
+      type="button"
+      onClick={() => removePlayer(player.id)}
 >
   Slett spiller
 </button>
+</div>
     </li>
   ))}
 </ul>
-  </>
+  </main>
   )
   }
 
