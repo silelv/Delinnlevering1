@@ -1,4 +1,5 @@
 import { usePlayers } from "../stores/usePlayers"
+import { useGame } from "../stores/useGame";
 
 export default function Player() {
 
@@ -7,6 +8,7 @@ export default function Player() {
   const selectPlayer = usePlayers((state) => state.selectPlayer);
   const selectedPlayerId = usePlayers((state) => state.selectedPlayerId);
   const removePlayer = usePlayers((state) => state.removePlayer);
+  const setBet = useGame((state) => state.setBet)
 
   function registerPlayer(formData: FormData) {
     const name = String(formData.get("name") ?? "").trim();
@@ -15,6 +17,11 @@ export default function Player() {
 
     addPlayer(name);
   }
+
+  function choosePlayer(id: string) {
+  selectPlayer(id);
+  setBet(1);
+}
 
   return (
     <>
@@ -35,7 +42,7 @@ export default function Player() {
       {player.name} – {player.coins} mynter
 
       <button type="button" 
-      onClick={() => selectPlayer(player.id)}
+      onClick={() => choosePlayer(player.id)}
       disabled={selectedPlayerId === player.id}>
         {selectedPlayerId === player.id ? "Valgt" : "Velg spiller"}
       </button>
