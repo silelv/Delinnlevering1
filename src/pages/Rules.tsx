@@ -1,7 +1,3 @@
-
-
 export default function Rules() {
-  return (
-   <h2>Spilleregler</h2>
-  )
+  return <h2>Spilleregler</h2>;
 }

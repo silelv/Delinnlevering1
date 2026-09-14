@@ -3,14 +3,13 @@ import { persist } from "zustand/middleware";
 import type { Player } from "../types/player";
 
 type PlayersState = {
-    players: Player[];
-    selectedPlayerId: string | null;
-    selectPlayer: (id: string) => void;
-    addPlayer: (name:string) => void;
-    removePlayer: (id: string) => void;
-    spendCoins: (id: string, amount: number) => boolean;
-}
-
+  players: Player[];
+  selectedPlayerId: string | null;
+  selectPlayer: (id: string) => void;
+  addPlayer: (name: string) => void;
+  removePlayer: (id: string) => void;
+  spendCoins: (id: string, amount: number) => boolean;
+};
 
 export const usePlayers = create<PlayersState>()(
   persist(
@@ -19,15 +18,15 @@ export const usePlayers = create<PlayersState>()(
       selectedPlayerId: null,
       selectPlayer: (id) => {
         set({ selectedPlayerId: id });
-        },
+      },
 
-         removePlayer: (id) => {
-  set((state) => ({
-    players: state.players.filter((player) => player.id !== id),
-    selectedPlayerId:
-      state.selectedPlayerId === id ? null : state.selectedPlayerId,
-  }));
-},
+      removePlayer: (id) => {
+        set((state) => ({
+          players: state.players.filter((player) => player.id !== id),
+          selectedPlayerId:
+            state.selectedPlayerId === id ? null : state.selectedPlayerId,
+        }));
+      },
 
       addPlayer: (name) => {
         const newPlayer: Player = {
@@ -56,7 +55,7 @@ export const usePlayers = create<PlayersState>()(
           players: state.players.map((player) =>
             player.id === id
               ? { ...player, coins: player.coins - amount }
-              : player
+              : player,
           ),
         }));
 
@@ -65,6 +64,6 @@ export const usePlayers = create<PlayersState>()(
     }),
     {
       name: "video-poker-players",
-    }
-  )
+    },
+  ),
 );

@@ -71,12 +71,12 @@
   background-color: transparent;
   color: #f3b5dc;
   cursor: pointer;
-} 
+}
 
 .deleteButton:hover {
-    background-color: #942121;
-    border-color: #b91c1c;
-    color: #ffffff;
+  background-color: #942121;
+  border-color: #b91c1c;
+  color: #ffffff;
 }
 
 .deleteButton:hover:not(:disabled) {
