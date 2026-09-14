@@ -79,6 +79,16 @@
     color: #ffffff;
 }
 
+.deleteButton:hover:not(:disabled) {
+  background-color: #b91c1c;
+  border-color: #b91c1c;
+  color: white;
+}
+
+.deleteButton:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
 
 @media (max-width: 600px) {
   .page {

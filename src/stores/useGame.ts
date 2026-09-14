@@ -1,37 +1,76 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { usePlayers } from "./usePlayers";
+import type { PlayingCard } from "../types/playingCard";
+import { createDeck, shuffleDeck } from "../utils/deck";
 
 type GameState = {
     bet: number;
     setBet: (amount: number) => void;
+    deck: PlayingCard[];
+    hand: PlayingCard[];
+    discardedCards: PlayingCard[];
+    dealCards: () => void;
+    phase: "ready" | "holding" | "finished";
 };
 
 
 export const useGame = create<GameState>()(
   persist(
-    (set) => ({
+    (set, get) => ({
       bet: 1,
-
-      // Oppdaterer innsatsen hvis valgt spiller har råd.
-      // Tar imot et positivt heltall og returnerer ingen verdi.
+      phase: "ready",
+      deck: [],
+      hand: [],
+      discardedCards: [],
       setBet: (amount) => {
-        if (!Number.isInteger(amount) || amount < 1) {
-          return;
-        }
+  if (get().phase === "holding") {
+    return;
+  }
 
-        const { players, selectedPlayerId } = usePlayers.getState();
+  if (!Number.isInteger(amount) || amount < 1) {
+    return;
+  }
 
-        const selectedPlayer = players.find(
-          (player) => player.id === selectedPlayerId
-        );
+  const { players, selectedPlayerId } = usePlayers.getState();
 
-        if (!selectedPlayer || amount > selectedPlayer.coins) {
-          return;
-        }
+  const selectedPlayer = players.find(
+    (player) => player.id === selectedPlayerId
+  );
 
-        set({ bet: amount });
-      },
+  if (!selectedPlayer || amount > selectedPlayer.coins) {
+    return;
+  }
+
+  set({ bet: amount });
+},
+          dealCards: () => {
+  const { phase, bet } = get();
+
+  if (phase === "holding") {
+    return;
+  }
+
+  const { selectedPlayerId, spendCoins } = usePlayers.getState();
+
+  if (!selectedPlayerId) {
+    return;
+  }
+
+  const shuffledDeck = shuffleDeck(createDeck());
+  const paid = spendCoins(selectedPlayerId, bet);
+
+  if (!paid) {
+    return;
+  }
+
+ set({
+    hand: shuffledDeck.slice(0, 5),
+    deck: shuffledDeck.slice(5),
+    discardedCards: [],
+    phase: "holding",
+  });
+},
     }),
     {
       name: "video-poker-game",
