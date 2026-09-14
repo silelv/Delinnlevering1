@@ -12,6 +12,9 @@ type GameState = {
     discardedCards: PlayingCard[];
     dealCards: () => void;
     phase: "ready" | "holding" | "finished";
+    heldCards: number[];
+    toggleHold: (index: number) => void;
+    drawCards: () => void;
 };
 
 
@@ -23,6 +26,59 @@ export const useGame = create<GameState>()(
       deck: [],
       hand: [],
       discardedCards: [],
+      heldCards: [],
+      toggleHold: (index) => {
+  const { phase, hand } = get();
+
+  if (
+    phase !== "holding" ||
+    !Number.isInteger(index) ||
+    index < 0 ||
+    index >= hand.length
+  ) {
+    return;
+  }
+
+  set((state) => ({
+    heldCards: state.heldCards.includes(index)
+      ? state.heldCards.filter((heldIndex) => heldIndex !== index)
+      : [...state.heldCards, index],
+  }));
+},
+
+drawCards: () => {
+  const { phase, hand, deck, heldCards } = get();
+
+  if (phase !== "holding") {
+    return;
+  }
+
+  const remainingDeck = [...deck];
+  const discardedCards: PlayingCard[] = [];
+
+  const newHand = hand.map((card, index) => {
+    if (heldCards.includes(index)) {
+      return card;
+    }
+
+    const replacement = remainingDeck.shift();
+
+    if (!replacement) {
+      return card;
+    }
+
+    discardedCards.push(card);
+    return replacement;
+  });
+
+  set({
+    hand: newHand,
+    deck: remainingDeck,
+    discardedCards: discardedCards,
+    phase: "finished",
+  });
+},
+
       setBet: (amount) => {
   if (get().phase === "holding") {
     return;
@@ -41,6 +97,8 @@ export const useGame = create<GameState>()(
   if (!selectedPlayer || amount > selectedPlayer.coins) {
     return;
   }
+
+  
 
   set({ bet: amount });
 },
