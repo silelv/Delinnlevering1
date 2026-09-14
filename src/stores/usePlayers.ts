@@ -4,16 +4,17 @@ import type { Player } from "../types/player";
 
 type PlayersState = {
     players: Player[];
-    addPlayer: (name:string) => void;
     selectedPlayerId: string | null;
     selectPlayer: (id: string) => void;
+    addPlayer: (name:string) => void;
     removePlayer: (id: string) => void;
+    spendCoins: (id: string, amount: number) => boolean;
 }
 
 
 export const usePlayers = create<PlayersState>()(
   persist(
-    (set) => ({
+    (set, get) => ({
       players: [],
       selectedPlayerId: null,
       selectPlayer: (id) => {
@@ -38,6 +39,28 @@ export const usePlayers = create<PlayersState>()(
         set((state) => ({
           players: [...state.players, newPlayer],
         }));
+      },
+      spendCoins: (id, amount) => {
+        const player = get().players.find((player) => player.id === id);
+
+        if (
+          !player ||
+          !Number.isInteger(amount) ||
+          amount < 1 ||
+          amount > player.coins
+        ) {
+          return false;
+        }
+
+        set((state) => ({
+          players: state.players.map((player) =>
+            player.id === id
+              ? { ...player, coins: player.coins - amount }
+              : player
+          ),
+        }));
+
+        return true;
       },
     }),
     {

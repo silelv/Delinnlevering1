@@ -10,6 +10,8 @@ export default function Player() {
   const selectedPlayerId = usePlayers((state) => state.selectedPlayerId);
   const removePlayer = usePlayers((state) => state.removePlayer);
   const setBet = useGame((state) => state.setBet)
+  const phase = useGame((state) => state.phase);
+  const roundIsActive = phase === "holding";
 
   function registerPlayer(formData: FormData) {
     const name = String(formData.get("name") ?? "").trim();
@@ -20,6 +22,9 @@ export default function Player() {
   }
 
   function choosePlayer(id: string) {
+
+    if (roundIsActive) return;
+
   selectPlayer(id);
   setBet(1);
 }
@@ -27,6 +32,9 @@ export default function Player() {
   return (
     <main className={styles.page}>
       <h2>Velg spiller</h2>
+      {roundIsActive && (
+  <p>Fullfør runden på spillsiden før du bytter eller sletter spillere.</p>
+)}
       <form className={styles.form} action={registerPlayer}>
         <label htmlFor="playerName">Spillernavn</label>
         <input
@@ -48,13 +56,14 @@ export default function Player() {
       className={styles.button}
       type="button" 
       onClick={() => choosePlayer(player.id)}
-      disabled={selectedPlayerId === player.id}>
+      disabled={roundIsActive || selectedPlayerId === player.id}>
         {selectedPlayerId === player.id ? "Valgt" : "Velg spiller"}
       </button>
       <button
       className={styles.deleteButton}
       type="button"
       onClick={() => removePlayer(player.id)}
+      disabled={roundIsActive}
 >
   Slett spiller
 </button>

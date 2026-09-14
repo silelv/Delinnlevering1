@@ -36,7 +36,31 @@
   text-align: center;
 }
 
+.cardButton {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 8px;
+  border: 2px solid transparent;
+  border-radius: 16px;
+  background-color: transparent;
+  color: #f8f5ff;
+  cursor: pointer;
+}
 
+.cardButton:hover:not(:disabled) {
+  background-color: #ffffff14;
+}
+
+.held {
+  border-color: #f3b5dc;
+  background-color: #f3b5dc14;
+}
+
+.cardButton:disabled {
+  cursor: default;
+}
 
 @media (max-width: 600px) {
   .game {
