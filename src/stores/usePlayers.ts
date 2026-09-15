@@ -9,6 +9,7 @@ type PlayersState = {
   addPlayer: (name: string) => void;
   removePlayer: (id: string) => void;
   spendCoins: (id: string, amount: number) => boolean;
+  addCoins: (id: string, amount: number) => void;
 };
 
 export const usePlayers = create<PlayersState>()(
@@ -39,6 +40,19 @@ export const usePlayers = create<PlayersState>()(
           players: [...state.players, newPlayer],
         }));
       },
+
+      addCoins: (id, amount) => {
+        if (!Number.isInteger (amount) || amount <= 0) {
+          return;
+        }
+        set((state) => ({
+          players: state.players.map((player) =>
+          player.id === id ? {
+            ...player, coins: player.coins + amount
+          } : player),
+        }));
+      },
+
       spendCoins: (id, amount) => {
         const player = get().players.find((player) => player.id === id);
 

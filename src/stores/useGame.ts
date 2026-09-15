@@ -3,6 +3,7 @@ import { persist } from "zustand/middleware";
 import { usePlayers } from "./usePlayers";
 import type { PlayingCard } from "../types/playingCard";
 import { createDeck, shuffleDeck } from "../utils/deck";
+import { calculateWinnings } from "../utils/payouts";
 
 type GameState = {
   bet: number;
@@ -59,9 +60,15 @@ export const useGame = create<GameState>()(
       },
 
       drawCards: () => {
-        const { phase, hand, deck, heldCards } = get();
+        const { phase, hand, deck, heldCards, bet } = get();
 
         if (phase !== "holding") {
+          return;
+        }
+
+        const { selectedPlayerId, addCoins } = usePlayers.getState();
+
+        if (!selectedPlayerId) {
           return;
         }
 
@@ -82,12 +89,16 @@ export const useGame = create<GameState>()(
           return replacement;
         });
 
+        const winnings = calculateWinnings(newHand, bet);
+
         set({
           hand: newHand,
           deck: remainingDeck,
           discardedCards: discardedCards,
           phase: "finished",
         });
+
+        addCoins(selectedPlayerId, winnings);
       },
 
       setBet: (amount) => {

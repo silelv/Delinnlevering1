@@ -47,9 +47,11 @@ export default function Game() {
             aria-label={`${card.suit} ${card.value}, behold kort`}
           >
             <Card card={card} />
-            {phase === "holding" && (
-              <span>{heldCards.includes(index) ? "Beholdes" : "Behold"}</span>
-            )}
+            {heldCards.includes(index) ? (
+  <span>Beholdes</span>
+) : (
+  phase === "holding" && <span>Behold</span>
+)}
           </button>
         ))}
       </div>
