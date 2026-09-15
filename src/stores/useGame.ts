@@ -17,12 +17,14 @@ type GameState = {
   toggleHold: (index: number) => void;
   drawCards: () => void;
   resetGame: () => void;
+  lastWinnings: number | null;
 };
 
 export const useGame = create<GameState>()(
   persist(
     (set, get) => ({
       bet: 1,
+      lastWinnings: null,
       phase: "ready",
       deck: [],
       hand: [],
@@ -32,6 +34,7 @@ export const useGame = create<GameState>()(
         if (get().phase === "holding") return;
 
         set({
+          lastWinnings: null,
           phase: "ready",
           hand: [],
           deck: [],
@@ -96,6 +99,7 @@ export const useGame = create<GameState>()(
           deck: remainingDeck,
           discardedCards: discardedCards,
           phase: "finished",
+          lastWinnings: winnings,
         });
 
         addCoins(selectedPlayerId, winnings);
@@ -148,6 +152,7 @@ export const useGame = create<GameState>()(
           discardedCards: [],
           heldCards: [],
           phase: "holding",
+          lastWinnings: null,
         });
       },
     }),
