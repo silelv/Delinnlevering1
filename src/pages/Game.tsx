@@ -5,6 +5,7 @@ import CurrentBet from "../components/CurrentBet";
 import styles from "../componentcss/Game.module.css";
 import { useGame } from "../stores/useGame";
 import HandResult from "../components/HandResult";
+import buttonStyles from "../componentcss/CurrentBet.module.css";
 
 export default function Game() {
   const players = usePlayers((state) => state.players);
@@ -48,17 +49,19 @@ export default function Game() {
           >
             <Card card={card} />
             {heldCards.includes(index) ? (
-  <span>Beholdes</span>
-) : (
-  phase === "holding" && <span>Behold</span>
-)}
+              <span>Beholdes</span>
+            ) : (
+              phase === "holding" && <span>Behold</span>
+            )}
           </button>
         ))}
       </div>
 
       <div className={styles.controls}>
         <CurrentBet />
+        <div className={buttonStyles.buttons}>
         <button
+        className={buttonStyles.button}
           type="button"
           onClick={dealCards}
           disabled={
@@ -68,12 +71,14 @@ export default function Game() {
           Del ut
         </button>
         <button
+        className={buttonStyles.button}
           type="button"
           onClick={drawCards}
           disabled={phase !== "holding"}
         >
           Bytt kort
         </button>
+      </div>
       </div>
       <HandResult />
     </main>
