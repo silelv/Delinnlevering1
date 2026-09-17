@@ -2,6 +2,7 @@ import type { PokerHand } from "../types/pokerHand";
 import type { PlayingCard } from "../types/playingCard";
 import { evaluateHand } from "./poker";
 
+
 export const payouts: Record<PokerHand, number> = {
   "royal-flush": 250,
   "straight-flush": 50,

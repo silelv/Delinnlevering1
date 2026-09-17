@@ -18,16 +18,16 @@ export default function Card({ card, faceDown = false }: CardProps) {
   }
 
   const symbols = {
-    hearts: "❤️",
-    diamonds: "♦️",
-    clubs: "♣️",
-    spades: "♠️",
+    hearts: "♥",
+    diamonds: "♦",
+    clubs: "♣",
+    spades: "♠",
   };
 
   const displayValue =
     card.value === 1
       ? "A"
-      : card.value === 11
+      : card.value === 11 
         ? "J"
         : card.value === 12
           ? "Q"
@@ -39,8 +39,17 @@ export default function Card({ card, faceDown = false }: CardProps) {
 
   return (
     <div className={`${styles.card} ${isRed ? styles.red : styles.black}`}>
-      <span>{symbols[card.suit]}</span>
-      <span>{displayValue}</span>
+      <div className={styles.topCorner}>
+        <span>{symbols[card.suit]}</span>
+        <span>{displayValue}</span>
+      </div>
+      <span className={styles.center} aria-hidden="true">
+        {symbols[card.suit]}
+      </span>
+      <div className={styles.bottomCorner} aria-hidden="true">
+        <span>{symbols[card.suit]}</span>
+        <span>{displayValue}</span>
+      </div>
     </div>
   );
 

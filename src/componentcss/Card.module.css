@@ -1,19 +1,44 @@
 .card {
   display: grid;
-  grid-template-columns: auto auto;
-  justify-content: center;
-  align-content: center;
-  gap: 8px;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto 1fr auto;
 
-  width: 100px;
-  height: 145px;
-  background-color: white;
-  color: black;
-  border: 2px solid black;
-  border-radius: 10px;
-  font-size: 32px;
+  width: 110px;
+  height: 160px;
+  padding: 8px;
 
-  
+  background-color: #fffdf9;
+  border: 1px solid #d8d3dd;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px #00000026;
+
+  font-family: Georgia, serif;
+  line-height: 1;
+}
+
+
+.topCorner,
+.bottomCorner {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.topCorner {
+  justify-self: start;
+}
+
+.bottomCorner {
+  justify-self: end;
+  transform: rotate(180deg);
+}
+
+.center {
+  align-self: center;
+  justify-self: center;
+  font-size: 52px;
 }
 
 .red {
@@ -26,4 +51,21 @@
 
 .back {
   background: linear-gradient(to top, #ffffff, #d54f85);
+}
+
+@media (max-width: 600px) {
+  .card {
+    width: 88px;
+    height: 130px;
+    padding: 6px;
+  }
+
+  .topCorner,
+  .bottomCorner {
+    font-size: 17px;
+  }
+
+  .center {
+    font-size: 40px;
+  }
 }
