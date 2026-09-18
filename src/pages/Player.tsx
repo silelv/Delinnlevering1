@@ -27,6 +27,16 @@ export default function Player() {
     resetGame();
   }
 
+  function deletePlayer(id: string) {
+  if (roundIsActive) return;
+
+  if (id === selectedPlayerId) {
+    resetGame();
+  }
+
+  removePlayer(id);
+}
+
   return (
     <main className={styles.page}>
       <h2>Velg spiller</h2>
@@ -64,7 +74,7 @@ export default function Player() {
               <button
                 className={styles.deleteButton}
                 type="button"
-                onClick={() => removePlayer(player.id)}
+                onClick={() => deletePlayer(player.id)}
                 disabled={roundIsActive}
               >
                 Slett spiller
