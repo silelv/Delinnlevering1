@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import type { Player } from "../types/player";
+import type { RoundLog } from "../types/roundLog";
 
 type PlayersState = {
   players: Player[];
@@ -10,6 +11,7 @@ type PlayersState = {
   removePlayer: (id: string) => void;
   spendCoins: (id: string, amount: number) => boolean;
   addCoins: (id: string, amount: number) => void;
+  addRound: (id: string, round: RoundLog) => void;
 };
 
 export const usePlayers = create<PlayersState>()(
@@ -34,6 +36,7 @@ export const usePlayers = create<PlayersState>()(
           id: crypto.randomUUID(),
           name: name,
           coins: 100,
+          log: [],
         };
 
         set((state) => ({
@@ -41,15 +44,36 @@ export const usePlayers = create<PlayersState>()(
         }));
       },
 
+      addRound: (id, round) => {
+        set((state) => ({
+          players: state.players.map((player) => {
+            if (player.id !== id) {
+              return player;
+            }
+
+            const oldLog = player.log ?? [];
+            const newLog = [round, ...oldLog];
+
+            return {
+              ...player,
+              log: newLog.slice(0, 10),
+            };
+          }),
+        }));
+      },
       addCoins: (id, amount) => {
-        if (!Number.isInteger (amount) || amount <= 0) {
+        if (!Number.isInteger(amount) || amount <= 0) {
           return;
         }
         set((state) => ({
           players: state.players.map((player) =>
-          player.id === id ? {
-            ...player, coins: player.coins + amount
-          } : player),
+            player.id === id
+              ? {
+                  ...player,
+                  coins: player.coins + amount,
+                }
+              : player,
+          ),
         }));
       },
 

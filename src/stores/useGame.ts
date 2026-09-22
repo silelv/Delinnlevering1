@@ -4,6 +4,7 @@ import { usePlayers } from "./usePlayers";
 import type { PlayingCard } from "../types/playingCard";
 import { createDeck, shuffleDeck } from "../utils/deck";
 import { calculateWinnings } from "../utils/payouts";
+import { evaluateHand } from "../utils/poker";
 
 type GameState = {
   bet: number;
@@ -69,7 +70,7 @@ export const useGame = create<GameState>()(
           return;
         }
 
-        const { selectedPlayerId, addCoins } = usePlayers.getState();
+        const { selectedPlayerId, addCoins, addRound } = usePlayers.getState();
 
         if (!selectedPlayerId) {
           return;
@@ -103,6 +104,12 @@ export const useGame = create<GameState>()(
         });
 
         addCoins(selectedPlayerId, winnings);
+        addRound(selectedPlayerId, {
+          id: crypto.randomUUID(),
+          hand: evaluateHand(newHand),
+          bet: bet,
+          winnings: winnings,
+        });
       },
 
       setBet: (amount) => {
