@@ -23,20 +23,6 @@
   color: #f8f5ff;
 }
 
-.button {
-  padding: 12px 20px;
-  border: none;
-  border-radius: 12px;
-  background: linear-gradient(135deg, #9ec5ff, #efb1dc);
-  color: #20243d;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-.button:disabled {
-  opacity: 0.55;
-  cursor: default;
-}
 
 .list {
   display: flex;
@@ -73,17 +59,6 @@
   cursor: pointer;
 }
 
-.deleteButton:hover {
-  background-color: #942121;
-  border-color: #b91c1c;
-  color: #ffffff;
-}
-
-.deleteButton:hover:not(:disabled) {
-  background-color: #b91c1c;
-  border-color: #b91c1c;
-  color: white;
-}
 
 .deleteButton:disabled {
   opacity: 0.45;
