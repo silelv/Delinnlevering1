@@ -1,6 +1,7 @@
 import { usePlayers } from "../stores/usePlayers";
 import { useGame } from "../stores/useGame";
 import styles from "../componentcss/Player.module.css";
+import buttonStyles from "../componentcss/CurrentBet.module.css";
 
 export default function Player() {
   const addPlayer = usePlayers((state) => state.addPlayer);
@@ -54,7 +55,7 @@ export default function Player() {
           type="text"
           required
         />
-        <button className={styles.button} type="submit">
+        <button className={buttonStyles.button} type="submit">
           Opprett spiller
         </button>
       </form>
@@ -64,7 +65,7 @@ export default function Player() {
             {player.name} – {player.coins} mynter
             <div className={styles.actions}>
               <button
-                className={styles.button}
+                className={buttonStyles.button}
                 type="button"
                 onClick={() => choosePlayer(player.id)}
                 disabled={roundIsActive || selectedPlayerId === player.id}

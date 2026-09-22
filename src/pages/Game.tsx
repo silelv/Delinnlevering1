@@ -36,15 +36,11 @@ export default function Game() {
       </div>
 
       <div className={styles.cards}>
-        {selectedPlayer && hand.length === 0 && (
-          <>
-            <Card card={{ suit: "hearts", value: 1 }} faceDown />
-            <Card card={{ suit: "hearts", value: 1 }} faceDown />
-            <Card card={{ suit: "hearts", value: 1 }} faceDown />
-            <Card card={{ suit: "hearts", value: 1 }} faceDown />
-            <Card card={{ suit: "hearts", value: 1 }} faceDown />
-          </>
-        )}
+        {selectedPlayer &&
+          hand.length === 0 &&
+          [0, 1, 2, 3, 4].map((index) => (
+            <Card key={index} card={{ suit: "hearts", value: 1 }} faceDown />
+          ))}
         {hand.map((card, index) => (
           <button
             key={`${card.suit}-${card.value}`}

@@ -11,5 +11,5 @@ export default function TotalCoins() {
 
   return <p>Mynter: {selectedPlayer.coins}</p>;
 
-  return <div></div>;
+ 
 }
