@@ -6,6 +6,7 @@ import styles from "../componentcss/Game.module.css";
 import { useGame } from "../stores/useGame";
 import HandResult from "../components/HandResult";
 import buttonStyles from "../componentcss/CurrentBet.module.css";
+import GameLog from "../components/GameLog";
 
 export default function Game() {
   const players = usePlayers((state) => state.players);
@@ -35,6 +36,15 @@ export default function Game() {
       </div>
 
       <div className={styles.cards}>
+        {selectedPlayer && hand.length === 0 && (
+          <>
+            <Card card={{ suit: "hearts", value: 1 }} faceDown />
+            <Card card={{ suit: "hearts", value: 1 }} faceDown />
+            <Card card={{ suit: "hearts", value: 1 }} faceDown />
+            <Card card={{ suit: "hearts", value: 1 }} faceDown />
+            <Card card={{ suit: "hearts", value: 1 }} faceDown />
+          </>
+        )}
         {hand.map((card, index) => (
           <button
             key={`${card.suit}-${card.value}`}
@@ -60,27 +70,30 @@ export default function Game() {
       <div className={styles.controls}>
         <CurrentBet />
         <div className={buttonStyles.buttons}>
-        <button
-        className={buttonStyles.button}
-          type="button"
-          onClick={dealCards}
-          disabled={
-            !selectedPlayer || phase === "holding" || bet > selectedPlayer.coins
-          }
-        >
-          Del ut
-        </button>
-        <button
-        className={buttonStyles.button}
-          type="button"
-          onClick={drawCards}
-          disabled={phase !== "holding"}
-        >
-          Bytt kort
-        </button>
-      </div>
+          <button
+            className={buttonStyles.button}
+            type="button"
+            onClick={dealCards}
+            disabled={
+              !selectedPlayer ||
+              phase === "holding" ||
+              bet > selectedPlayer.coins
+            }
+          >
+            Del ut
+          </button>
+          <button
+            className={buttonStyles.button}
+            type="button"
+            onClick={drawCards}
+            disabled={phase !== "holding"}
+          >
+            Bytt kort
+          </button>
+        </div>
       </div>
       <HandResult />
+      <GameLog />
     </main>
   );
 }
