@@ -28,3 +28,6 @@ export default function PayoutTable() {
     </table>
   );
 }
+
+// Trenger ingenting inn. Gir tilbake en tabell som viser
+// hvor mange ganger innsatsen hver pokerhånd betaler.

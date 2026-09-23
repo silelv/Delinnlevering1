@@ -36,3 +36,6 @@ export default function Header() {
     </header>
   );
 }
+
+// Trenger ingenting inn. Gir tilbake tittelen og lenker til sidene,
+// med markering på siden som er åpen.

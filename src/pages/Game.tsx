@@ -93,3 +93,6 @@ export default function Game() {
     </main>
   );
 }
+
+// Trenger ingenting inn. Gir tilbake spillbrettet med kort, innsats,
+// mynter, resultat og logg. Kobler knappene til funksjonene som styrer spillet.

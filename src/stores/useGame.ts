@@ -33,7 +33,8 @@ export const useGame = create<GameState>()(
       heldCards: [],
       resetGame: () => {
         if (get().phase === "holding") return;
-
+        // Trenger ingenting inn. Tømmer kortene og setter innsatsen tilbake til 1,
+        // hvis ingen runde pågår. Gir ingen verdi tilbake.
         set({
           lastWinnings: null,
           phase: "ready",
@@ -46,6 +47,9 @@ export const useGame = create<GameState>()(
       },
       toggleHold: (index) => {
         const { phase, hand } = get();
+
+        // Tar inn plassen til et kort og markerer det som beholdt, eller fjerner markeringen.
+        // Virker bare mens spilleren velger kort å beholde. Gir ingen verdi tilbake
 
         if (
           phase !== "holding" ||
@@ -112,6 +116,10 @@ export const useGame = create<GameState>()(
         });
       },
 
+      // Trenger ingenting inn. Beholder de markerte kortene og bytter resten
+      // med kort fra den stokkede kortstokken. Regner ut utbetalingen, legger til
+      // myntene og lagrer runden i loggen. Gir ingen verdi tilbake.
+
       setBet: (amount) => {
         if (get().phase === "holding") {
           return;
@@ -133,6 +141,10 @@ export const useGame = create<GameState>()(
 
         set({ bet: amount });
       },
+
+      // Tar inn ønsket innsats. Endrer den bare hvis den er et heltall på minst 1,
+      // spilleren har nok mynter og ingen runde pågår. Gir ingen verdi tilbake
+
       dealCards: () => {
         const { phase, bet } = get();
 
@@ -162,6 +174,10 @@ export const useGame = create<GameState>()(
           lastWinnings: null,
         });
       },
+
+      // Trenger ingenting inn. Lager og stokker kortstokken, trekker innsatsen
+      // og deler ut fem kort hvis spilleren kan betale. Gjør det mulig å velge
+      // kort som skal beholdes. Gir ingen verdi tilbake.
     }),
     {
       name: "video-poker-game",

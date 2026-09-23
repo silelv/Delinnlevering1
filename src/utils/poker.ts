@@ -17,6 +17,9 @@ export function countValues(hand: PlayingCard[]): Record<number, number> {
   return counts;
 }
 
+// Tar inn hånda og teller kort med samme verdi
+// Gir tilbake hver verdi og hvor mange kort vi har av den
+
 export function evaluateHand(hand: PlayingCard[]): PokerHand {
   if (hand.length !== 5) {
     throw new Error("Hånden må inneholde fem kort.");
@@ -72,3 +75,5 @@ export function evaluateHand(hand: PlayingCard[]): PokerHand {
 
   return "high-card";
 }
+
+// Sjekker kortene på hånden og gir tilbake den beste pokerhånden

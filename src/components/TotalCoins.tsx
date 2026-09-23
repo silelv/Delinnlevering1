@@ -13,3 +13,5 @@ export default function TotalCoins() {
 
  
 }
+// Trenger ingenting inn. Viser hvor mange mynter den valgte spilleren har.
+// Gir tilbake myntvisningen, eller ingenting hvis ingen spiller er valgt.

@@ -18,3 +18,5 @@ export default function App() {
         </>
     )
 }
+
+// Trenger ingenting inn. Gir tilbake headeren og siden som passer til nettadressen.

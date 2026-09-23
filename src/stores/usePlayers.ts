@@ -23,6 +23,9 @@ export const usePlayers = create<PlayersState>()(
         set({ selectedPlayerId: id });
       },
 
+      // Tar inn spillerens id og setter hvem som er valgt
+      // Gir ingen verdi tilbake
+
       removePlayer: (id) => {
         set((state) => ({
           players: state.players.filter((player) => player.id !== id),
@@ -31,6 +34,9 @@ export const usePlayers = create<PlayersState>()(
         }));
       },
 
+      // Tar inn en id og fjerner spilleren med samme id fra listen
+      // Gir ingen verdi tilbake
+
       addPlayer: (name) => {
         const newPlayer: Player = {
           id: crypto.randomUUID(),
@@ -38,6 +44,9 @@ export const usePlayers = create<PlayersState>()(
           coins: 100,
           log: [],
         };
+
+        // Legger til en ny spiller med navn, unik id og 100 mynter.
+        // Gir ingenting tilbake
 
         set((state) => ({
           players: [...state.players, newPlayer],
@@ -61,6 +70,10 @@ export const usePlayers = create<PlayersState>()(
           }),
         }));
       },
+
+      // Tar inn spillerens id og resultatet fra en runde
+      // Legger runden i loggen og beholder de 10 nyeste. Gir ingen verdi tilbake
+
       addCoins: (id, amount) => {
         if (!Number.isInteger(amount) || amount <= 0) {
           return;
@@ -76,6 +89,9 @@ export const usePlayers = create<PlayersState>()(
           ),
         }));
       },
+
+      // Tar inn spillerens id og antall mynter som skal legges til saldoen
+      // Legger til myntene hvis antallet er et positivt heltall. Gir ingen verdi tilbake
 
       spendCoins: (id, amount) => {
         const player = get().players.find((player) => player.id === id);
@@ -99,6 +115,10 @@ export const usePlayers = create<PlayersState>()(
 
         return true;
       },
+
+      // Tar inn spillerens id og innsatsen. Sjekker at innsatsen er et positivt heltall
+      // og at spilleren har nok mynter. Trekker innsatsen og gir true hvis det stemmer,
+      // ellers false.
     }),
     {
       name: "video-poker-players",
