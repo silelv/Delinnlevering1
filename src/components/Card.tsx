@@ -27,7 +27,7 @@ export default function Card({ card, faceDown = false }: CardProps) {
   const displayValue =
     card.value === 1
       ? "A"
-      : card.value === 11 
+      : card.value === 11
         ? "J"
         : card.value === 12
           ? "Q"
@@ -52,6 +52,7 @@ export default function Card({ card, faceDown = false }: CardProps) {
       </div>
     </div>
   );
-
-  //Dette er funksjonen som skal vise verdi og hvilket symbol kortet har
 }
+
+// Tar inn et kort og om baksiden skal vises.
+// Gir tilbake kortets bakside, eller forsiden med verdi og symbol.

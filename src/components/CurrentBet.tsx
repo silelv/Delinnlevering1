@@ -12,19 +12,22 @@ export default function CurrentBet() {
     (player) => player.id === selectedPlayerId,
   );
 
-function decreaseBet() {
-  if (!selectedPlayer || selectedPlayer.coins < 1) {
-    return;
+  function decreaseBet() {
+    if (!selectedPlayer || selectedPlayer.coins < 1) {
+      return;
+    }
+
+    let newBet = bet - 1;
+
+    if (newBet > selectedPlayer.coins) {
+      newBet = selectedPlayer.coins;
+    }
+
+    setBet(newBet);
   }
 
-  let newBet = bet - 1;
-
-  if (newBet > selectedPlayer.coins) {
-    newBet = selectedPlayer.coins;
-  }
-
-  setBet(newBet);
-}
+  // Trenger ingenting inn. Senker innsatsen med 1, eller til antall mynter
+  // spilleren har hvis det er lavere. Gir ingen verdi tilbake.
 
   return (
     <div className={styles.bet}>
@@ -36,10 +39,12 @@ function decreaseBet() {
           className={styles.button}
           type="button"
           onClick={decreaseBet}
-          disabled={!selectedPlayer ||
-  phase === "holding" ||
-  bet <= 1 ||
-  selectedPlayer.coins < 1}
+          disabled={
+            !selectedPlayer ||
+            phase === "holding" ||
+            bet <= 1 ||
+            selectedPlayer.coins < 1
+          }
         >
           Reduser Innsats
         </button>
@@ -48,7 +53,11 @@ function decreaseBet() {
           className={styles.button}
           type="button"
           onClick={() => setBet(bet + 1)}
-          disabled={!selectedPlayer || phase === "holding" || bet >= selectedPlayer.coins}
+          disabled={
+            !selectedPlayer ||
+            phase === "holding" ||
+            bet >= selectedPlayer.coins
+          }
         >
           Øk innsats
         </button>
@@ -56,3 +65,6 @@ function decreaseBet() {
     </div>
   );
 }
+
+// Trenger ingenting inn. Henter innsatsen og valgt spiller fra storene.
+// Gir tilbake visningen av innsatsen og knappene for å endre den.

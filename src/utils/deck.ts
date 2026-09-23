@@ -18,6 +18,9 @@ export function createDeck(): PlayingCard[] {
   return deck;
 }
 
+// Lager alle 52 kortene med farge og verdi
+// Trenger ingenting inn og gir tilbake en liste med kortene
+
 export function shuffleDeck(deck: PlayingCard[]): PlayingCard[] {
   const shuffledDeck = [...deck];
 
@@ -31,3 +34,6 @@ export function shuffleDeck(deck: PlayingCard[]): PlayingCard[] {
 
   return shuffledDeck;
 }
+
+// Tar inn en kortstokk, lager en kopi og stokker kortene
+// Gir tilbake den stokkede kopien

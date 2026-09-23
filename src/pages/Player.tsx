@@ -21,6 +21,9 @@ export default function Player() {
     addPlayer(name);
   }
 
+  // Tar inn skjemaet og fjerner mellomrom før og etter navnet.
+  // Oppretter spilleren hvis navnet ikke er tomt. Gir ingen verdi tilbake.
+
   function choosePlayer(id: string) {
     if (roundIsActive) return;
 
@@ -28,15 +31,21 @@ export default function Player() {
     resetGame();
   }
 
-  function deletePlayer(id: string) {
-  if (roundIsActive) return;
+  // Tar inn spillerens id, velger spilleren og nullstiller spillet.
+  // Stopper hvis en runde pågår. Gir ingen verdi tilbake.
 
-  if (id === selectedPlayerId) {
-    resetGame();
+  function deletePlayer(id: string) {
+    if (roundIsActive) return;
+
+    if (id === selectedPlayerId) {
+      resetGame();
+    }
+
+    removePlayer(id);
   }
 
-  removePlayer(id);
-}
+  // Tar inn spillerens id og sletter spilleren hvis ingen runde pågår.
+  // Nullstiller også spillet hvis spilleren var valgt. Gir ingen verdi tilbake.
 
   return (
     <main className={styles.page}>
@@ -87,3 +96,6 @@ export default function Player() {
     </main>
   );
 }
+
+// Trenger ingenting inn. Gir tilbake spillersiden med listen over spillere
+// og mulighet til å opprette, velge og slette spillere.

@@ -63,4 +63,4 @@ export default function Rules() {
   );
 }
 
-
+// Trenger ingenting inn. Gir tilbake siden med spilleregler og utbetalingstabellen.
