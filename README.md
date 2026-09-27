@@ -1,75 +1,22 @@
-# React + TypeScript + Vite
+Silje Elviks VIDEO POKER
+Et skoleprosjekt laget med React, TypeScript, React Router og Zustand.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Spillet
 
-Currently, two official plugins are available:
+Opprett en spiller som starter med 100 mynter, velg innsats og del ut fem kort. Velg hvilke kort du vil beholde, og bytt resten én gang. Den endelige pokerhånden avgjør utbetalingen.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Appen har:
+- En spillside med kort, innsats og myntsaldo.
+- En spillerside for å opprette, velge og slette spillere.
+- En regelside med spilleregler og utbetalingstabell.
+- En logg med de ti siste rundene for hver spiller.
 
-## React Compiler
+Spillere og spilltilstand lagres i nettleserens localStorage. En pågående runde beholdes ved sidenavigering og oppdatering av siden.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Designinspirasjon
 
-## Expanding the ESLint configuration
+[Game Poker på Dribbble](https://dribbble.com/shots/23097943-Game-Poker)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Refleksjon
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
-```
-
-You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
-```
+Se REFLEKSJON.md for refleksjon rundt læring og arbeidet med oppgaven.
